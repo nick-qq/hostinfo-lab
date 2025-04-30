@@ -85,3 +85,13 @@ jobs:
           context: ./python
           push: false
           tags: 127.0.0.1:5000/student/hostinfo:latest
+          
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: 'docker.io/rxmllc/hostinfo:v1-python'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
